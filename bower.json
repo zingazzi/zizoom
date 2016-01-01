@@ -1,0 +1,26 @@
+{
+  "name": "zizoom",
+  "version": "1.0.0",
+  "homepage": "https://github.com/zingazzi/zizoom",
+  "authors": [
+	"Marco Zingoni <marco.zingoni@gmail.com>"
+  ],
+  "description": "Lightweight jquery plugin magnify image",
+  "main": [
+	"dist/jquery.zizoom.js",
+	"dist/jquery.zizoom.min.js"
+  ],
+  "keywords": [
+	"jquery",
+	"plugin",
+	"zizoom",
+	"zoom",
+	"image",
+	"hover"
+  ],
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+	"jquery": ">=1.7.1"
+  }
+}

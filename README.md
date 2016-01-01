@@ -12,7 +12,7 @@ Lightweight jquery plugin magnify image
 2. Include ZoomToo code:
 
 	```html
-	<script src="dist/zizoom.js"></script>
+	<script src="dist/jquery.zizoom.js"></script>
 	```
 
 3. Markup the container element:

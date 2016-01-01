@@ -33,43 +33,43 @@ Lightweight jquery plugin magnify image
 
 1. Activate Method:
 
-Select activation method.
+	Select activation method.
 
 	```html
 	activate    : 'hover', 'click'
 	```
 
-hover: on mouse over (default)
-click: onmouse click
+	hover: on mouse over (default)
+	click: onmouse click
 
 2. Data name for zoomed img:
 
-Select activation method.
+	Select activation method.
 
 	```html
 	dataElement : 'zoom'
 	```
-zoom  (default) - retrieve form data-zoom 
+	zoom  (default) - retrieve form data-zoom 
 
 3. Icon:
 
-Font icon reference.
-Used if you select 'click' option on activated method
+	Font icon reference.
+	Used if you select 'click' option on activated method
 
 	```html
 	zoomicon : 'fa fa-search'
 	```
 
-'fa fa-search' (default). As default use font-awersome search icon
+	'fa fa-search' (default). As default use font-awersome search icon
 
 3. Icon color:
 
-Font icon reference.
-Used if you select 'click' option on activated method
+	Font icon reference.
+	Used if you select 'click' option on activated method
 
 	```html
 	zoomcolor : '#fff'
 	```
 
-'#fff' (default). color Hex 
+	'#fff' (default). color Hex 
 

@@ -49,7 +49,11 @@
 			// start on click
 			if(params.activate == 'click') {
 
+				// attach icon
 				$zoomicon = insertZoomIcon($t);
+
+				// set cursor pointer to main div
+				$t.css('cursor', 'pointer');
 
 				$t.on('click hover', function(event) {
             		showImgBig($imgBig);

@@ -28,52 +28,56 @@
 			var $t      = $(this);
 			var $imgSml = $t.children('img');
 
-			$imgBig = setCssAndCreateImgBig($t);
-			setContainerSize($imgSml, $t);
+			$imgSml.load(function(){
 
-			// start on hover
-			if(params.activate == 'hover') {
-				$t.mouseover(function() {
-					showImgBig($imgBig);
-					$t.mousemove(function( e ) {
-						xpos = e.pageX;
-						ypos = e.pageY;
-	        			moveImgBig($t, $imgBig, xpos, ypos);
+				$imgBig = setCssAndCreateImgBig($t);
+				setContainerSize($imgSml, $t);
+
+				// start on hover
+				if(params.activate == 'hover') {
+					$t.mouseover(function() {
+						showImgBig($imgBig);
+						$t.mousemove(function( e ) {
+							xpos = e.pageX;
+							ypos = e.pageY;
+		        			moveImgBig($t, $imgBig, xpos, ypos);
+						});
 					});
-				});
-				$t.mouseout(function() {
-					hideImgBig($imgBig);
-				});
-			}
-
-			// start on click
-			if(params.activate == 'click') {
-
-				// attach icon
-				$zoomicon = insertZoomIcon($t);
-
-				// set cursor pointer to main div
-				$t.css('cursor', 'pointer');
-
-				$t.on('click hover', function(event) {
-            		showImgBig($imgBig);
-					$t.mousemove(function( e ) {
-						xpos = e.pageX;
-						ypos = e.pageY;
-	        			moveImgBig($t, $imgBig, xpos, ypos);
+					$t.mouseout(function() {
+						hideImgBig($imgBig);
 					});
-					$(document).mousemove(function(){
-						if($t.is(':hover')== false) { hideImgBig($imgBig); }
+				}
+
+				// start on click
+				if(params.activate == 'click') {
+
+					// attach icon
+					$zoomicon = insertZoomIcon($t);
+
+					// set cursor pointer to main div
+					$t.css('cursor', 'pointer');
+
+					$t.on('click hover', function(event) {
+	            		showImgBig($imgBig);
+						$t.mousemove(function( e ) {
+							xpos = e.pageX;
+							ypos = e.pageY;
+		        			moveImgBig($t, $imgBig, xpos, ypos);
+						});
+						$(document).mousemove(function(){
+							if($t.is(':hover')== false) { hideImgBig($imgBig); }
+						});
 					});
-				});
 
-				$t.mouseover(function() {
-					$zoomicon.show();
-				}).mouseout(function(){
-					$zoomicon.hide();
-				});
+					$t.mouseover(function() {
+						$zoomicon.show();
+					}).mouseout(function(){
+						$zoomicon.hide();
+					});
 
-			}
+				}
+
+			});
 
 		});
 

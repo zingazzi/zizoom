@@ -30,21 +30,23 @@
 
 			$imgSml.load(function(){
 
-				$imgBig = setCssAndCreateImgBig($t);
-				setContainerSize($imgSml, $t);
+				$imgBig  = setCssAndCreateImgBig($t);
+				$overlay = setCssAndCreateOverlay($t);
+				setContainerSize($imgSml, $t, $overlay);
 
 				// start on hover
 				if(params.activate == 'hover') {
 					$t.mouseover(function() {
 						showImgBig($imgBig);
-						$t.mousemove(function( e ) {
-							xpos = e.pageX;
-							ypos = e.pageY;
+	            		showOverlay($overlay);						
+						$overlay.mousemove(function( e ) {
+							xpos = e.pageX - $t.offset().left;
+							ypos = e.pageY - $t.offset().top;
 		        			moveImgBig($t, $imgBig, xpos, ypos);
 						});
 					});
 					$t.mouseout(function() {
-						hideImgBig($imgBig);
+						hideImgBig($imgBig, $overlay);
 					});
 				}
 
@@ -59,13 +61,17 @@
 
 					$t.on('click hover', function(event) {
 	            		showImgBig($imgBig);
-						$t.mousemove(function( e ) {
-							xpos = e.pageX;
-							ypos = e.pageY;
+	            		showOverlay($overlay);
+						$overlay.mousemove(function( e ) {
+							xpos = e.pageX - $t.offset().left;
+							ypos = e.pageY - $t.offset().top;
+							// console.log(xpos+' '+ypos);
 		        			moveImgBig($t, $imgBig, xpos, ypos);
+
 						});
-						$(document).mousemove(function(){
-							if($t.is(':hover')== false) { hideImgBig($imgBig); }
+						$(document).mousemove(function(e){
+							console.log($overlay.is(':hover'));
+							if($overlay.is(':hover') === false) { hideImgBig($imgBig, $overlay); }
 						});
 					});
 
@@ -95,14 +101,34 @@
 			$t.append($imgBig);
 
 			// Set imgBig css Options
-			$imgBig.css('position', 'absolute').css('display', 'none');
+			$imgBig.css('position', 'absolute')
+				   .css('display', 'none');
 
 			return $imgBig;
 
 		}
 
+		// Create overlay 
+		// Return overlay obj
+		function setCssAndCreateOverlay($t) {
+
+			var $overlay = $('<div class="zizoom--overlay"></div>');
+			$t.append($overlay);	   
+
+			$overlay.css('position', 'absolute')
+				   .css('display', 'none')
+				   .css('top', '0')
+				   .css('left', '0')
+				   .css('z-index', '11');
+
+			return $overlay;
+
+		}
+
+
+
 		// Set Container Size = imgSml Size 
-		function setContainerSize($imgSml, $t) {
+		function setContainerSize($imgSml, $t, $overlay) {
 
 			// get container w & h
 			w = $imgSml.width();
@@ -111,6 +137,9 @@
 			// set container w & h
 			$t.width(w);
 			$t.height(h);
+
+			$overlay.width(w);
+			$overlay.height(h);
 
 		}
 
@@ -122,11 +151,20 @@
 
 		}
 
+		// Position overlay 
+		function showOverlay($overlay) {
+
+			$overlay.css('display', 'block');
+
+		}
+
 		// Position imgBig 
 		function hideImgBig($imgBig) {
 
 			$imgBig.css('display', 'none')
 				   .css('z-index', 0);
+
+			$overlay.css('display', 'none');	   
 
 		}
 
@@ -139,13 +177,15 @@
 			var offset = $t.offset();
 			offsetTop = offset.top;
 			offsetLeft = offset.left;
+			// offsetLeft =  $t.position().left;
+			// offsetTop =  $t.position().top;
 
 			imgBigW = $imgBig.width() - w;
 			imgBigH = $imgBig.height() - h;
 
 			// get new position of imgBig
-			imgBigXPos = ( xpos * imgBigW ) / w * -1 + offsetLeft;
-			imgBigYPos = ( ypos * imgBigH ) / h * -1 + offsetTop;
+			imgBigXPos = ( xpos * imgBigW ) / w * -1;
+			imgBigYPos = ( ypos * imgBigH ) / h * -1;
 
 			// set new position of imgBig
 			$imgBig.css('left', imgBigXPos)
